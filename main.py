@@ -10,7 +10,7 @@ api = FastAPI()
 async def verProducto():
     return {"message": database_productos}  
   
-'''Mostrar productos'''
+'''Mostrar productos por el codigo'''
 @api.get("/producto/{codigo}")
 async def get_nombre(codigo: int):
     producto_in_db = get_producto(codigo)
@@ -18,6 +18,7 @@ async def get_nombre(codigo: int):
         raise HTTPException(status_code=404, detail="El usuario no existe")
     producto_out = ProductoOut(**producto_in_db.dict())
     return producto_out
+
 '''Crear productos'''
 @api.post("/producto/{codigo}")
 async def crear_producto(producto: ProductoInDB):
@@ -29,6 +30,7 @@ async def crear_producto(producto: ProductoInDB):
 async def modificar_producto(producto: ProductoInDB):
     database_productos[producto.codigo]=producto
     return producto
+
 '''Eliminar productos'''
 @api.delete("/producto/")
 async def eliminar_producto(producto: ProductoInDB):
