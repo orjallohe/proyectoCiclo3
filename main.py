@@ -7,12 +7,12 @@ from fastapi import FastAPI, HTTPException
 api = FastAPI()
 
 @api.get("/producto")
-async def verProducto():
-    return {"message": database_productos}  
+async def listar_producto():
+    return {"Lista de productos": database_productos}  
   
 '''Mostrar productos por el codigo'''
 @api.get("/producto/{codigo}")
-async def get_nombre(codigo: int):
+async def buscar_producto(codigo: int):
     producto_in_db = get_producto(codigo)
     if producto_in_db == None:
         raise HTTPException(status_code=404, detail="El usuario no existe")
